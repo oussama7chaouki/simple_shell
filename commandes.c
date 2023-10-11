@@ -7,7 +7,7 @@
  * @env_vars: The environment variables
  * @exit_status: The pointer to an int where the exit status will be stored
  */
-void execute_shell_command(char **cmd_args, char **env_vars, int *exit_status)
+void execute_shell_command(char **cmd_args, char **env_vars, int *exit_status, char **argv, int index)
 {
 	char *cmd_path = NULL;
 	int child_pid;
@@ -43,7 +43,7 @@ void execute_shell_command(char **cmd_args, char **env_vars, int *exit_status)
 	else
 	{
 		*exit_status = 127;
-		write_command_error(cmd_args[0]);
+		write_error(argv[0], cmd_args[0], index);
 	}
 }
 
@@ -131,11 +131,11 @@ void wait_child_process(int *exit_status)
 char *get_environment_variable(const char *var_name)
 {
 	int i;
-	int name_length = string_length((char *)var_name);
+	int name_length = _strlen((char *)var_name);
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		if (!string_compare(var_name, environ[i], name_length))
+		if (!strncmp(var_name, environ[i], name_length))
 		{
 			if (environ[i][name_length] == '=')
 			{
@@ -158,7 +158,7 @@ void print_environment_variables(void)
 
 	while (*env != NULL)
 	{
-		write(STDOUT_FILENO, *env, string_length(*env));
+		write(STDOUT_FILENO, *env, _strlen(*env));
 		write(STDOUT_FILENO, "\n", 1);
 		env++;
 	}

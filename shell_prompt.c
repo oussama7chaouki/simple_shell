@@ -6,18 +6,19 @@
  * Description: Initializes the shell, handles user input,
  * tokenizes commands, and executes them.
  */
-void start_shell(void)
+void start_shell(char **argv)
 {
 	char *line = NULL, **commands, *envp[] = {NULL};
 	size_t line_size = 0;
 	ssize_t nread;
-	int status = 0;
+	int status = 0, count = 0;
 
 	while (1)
 	{
 		nread = read_command(&line, &line_size);
 		if (nread == -1)
-			handle_readline_error(line);
+			handle_getline_error(line);
+		count++;
 		commands = tokenize_string(line, " \n\t");
 		if (commands[0])
 		{
@@ -42,7 +43,7 @@ void start_shell(void)
 				status = 0;
 			}
 			else
-				execute_command(commands, envp, &status);
+				execute_shell_command(commands, envp, &status, argv, count);
 		}
 		free_array(commands);
 		free(line);
@@ -69,9 +70,16 @@ ssize_t read_command(char **line, size_t *line_size)
  * @command: command
  * Description: Writes an error message
  */
-void write_error(char *command)
+void write_error(char *name, char *command, int index)
 {
-	write(STDERR_FILENO, "./hsh: 1: ", 10);
+	char i[10] = {'\0'};
+
+	int_to_string(index,i);
+
+	write(STDERR_FILENO, name, _strlen(name));
+	write(STDERR_FILENO, ":", 2);
+	write(STDERR_FILENO, i, _strlen(i));
+	write(STDERR_FILENO, ":", 2);
 	write(STDERR_FILENO, command, _strlen(command));
 	write(STDERR_FILENO, ": not found\n", 12);
 }

@@ -1,10 +1,10 @@
-#include <stdlib.h>
+#include "shell.h"
 /**
  * _strdup - returns a pointer to a newly allocated space in memory,
  * @str: the source string
  * Return: returns a pointer to the copy string.
  */
-char *_strdup(char *str)
+char *_strdup(const char *str)
 {
 	char *duplic;
 	int i, length;

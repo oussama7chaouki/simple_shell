@@ -5,11 +5,12 @@
  *
  * Return: Returns 0 on success, or status of the non_interactive_mode
  */
-int main(void)
+int main(int ac, char **argv)
 {
 	size_t size_line = 0;
 	char *line = NULL;
 	int status = 0;
+	(void) ac;
 
 	if (!isatty(0))
 	{
@@ -24,7 +25,7 @@ int main(void)
 		}
 		return (status);
 	}
-	debut_shell();
+	start_shell(argv);
 	return (0);
 }
 
@@ -65,7 +66,7 @@ void non_interactive_mode(char *token, int *status)
 			*status = 0;
 		}
 		else
-			execute_shell_command(single_command, envp, status);
+			execute_shell_command(single_command, envp, status, NULL, 0);
 	}
 	free_array(single_command);
 }
