@@ -16,7 +16,7 @@ int main(int ac, char **argv)
 	{
 		while (getline(&line, &size_line, stdin) != -1)
 		{
-			non_interactive_mode(line, &status);
+			non_interactive_mode(line, &status, argv);
 		}
 		if (line)
 		{
@@ -36,7 +36,7 @@ int main(int ac, char **argv)
  *
  * Return: Returns exit status.
  */
-void non_interactive_mode(char *token, int *status)
+void non_interactive_mode(char *token, int *status, char **argv)
 {
 	char **single_command;
 	char *envp[] = {NULL};
@@ -66,7 +66,7 @@ void non_interactive_mode(char *token, int *status)
 			*status = 0;
 		}
 		else
-			execute_shell_command(single_command, envp, status, NULL, 0);
+			execute_shell_command(single_command, envp, status, argv, 0);
 	}
 	free_array(single_command);
 }

@@ -28,7 +28,7 @@ void write_error(char *name, char *command, int index);
 void write_exit_error(char *number);
 char **tokenize_string(char *str, char *delimiters);
 int main(int ac, char **argv);
-void non_interactive_mode(char *token, int *status);
+void non_interactive_mode(char *token, int *status, char **argv);
 void free_array(char **array);
 char *_strdup(const char *src);
 int _strlen(char *str);

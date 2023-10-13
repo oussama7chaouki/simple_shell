@@ -77,9 +77,9 @@ void write_error(char *name, char *command, int index)
 	int_to_string(index,i);
 
 	write(STDERR_FILENO, name, _strlen(name));
-	write(STDERR_FILENO, ":", 2);
+	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, i, _strlen(i));
-	write(STDERR_FILENO, ":", 2);
+	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, command, _strlen(command));
 	write(STDERR_FILENO, ": not found\n", 12);
 }
