@@ -74,6 +74,7 @@ void write_error(char *name, char *command, int index)
 {
 	char i[10] = {'\0'};
 
+        if (index ==0) index=1;
 	int_to_string(index,i);
 
 	write(STDERR_FILENO, name, _strlen(name));
