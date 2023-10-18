@@ -3,7 +3,7 @@
 /**
  * int_to_string - converts a number to a string.
  * @number: number to be converten in an string.
- *
+ * @string: the return string
  * Return: the number as string.
  */
 void int_to_string(int number, char *string)

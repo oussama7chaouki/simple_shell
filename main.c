@@ -2,7 +2,8 @@
 
 /**
  * main - Entry point for the shell program
- *
+ * @ac: argument count
+ * @argv: argument param
  * Return: Returns 0 on success, or status of the non_interactive_mode
  */
 int main(int ac, char **argv)
@@ -33,7 +34,7 @@ int main(int ac, char **argv)
  * non_interactive_mode - Executes shell commands in non_interactive_mode
  * @token: The string containing commands separated by newline characters
  * @status: Pointer to an integer to store the exit status
- *
+ * @argv: argument param
  * Return: Returns exit status.
  */
 void non_interactive_mode(char *token, int *status, char **argv)

@@ -6,8 +6,11 @@
  * @cmd_args: The command and its arguments as an array of strings
  * @env_vars: The environment variables
  * @exit_status: The pointer to an int where the exit status will be stored
+ * @argv: program argument
+ * @index: execution count
  */
-void execute_shell_command(char **cmd_args, char **env_vars, int *exit_status, char **argv, int index)
+void execute_shell_command(char **cmd_args, char **env_vars
+		, int *exit_status, char **argv, int index)
 {
 	char *cmd_path = NULL;
 	int child_pid;

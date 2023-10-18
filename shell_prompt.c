@@ -2,7 +2,7 @@
 
 /**
  * start_shell - Starts the shell's main loop
- *
+ * @argv: program argument
  * Description: Initializes the shell, handles user input,
  * tokenizes commands, and executes them.
  */
@@ -13,12 +13,11 @@ void start_shell(char **argv)
 	ssize_t nread;
 	int status = 0, count = 0;
 
-	while (1)
+	while (++count)
 	{
 		nread = read_command(&line, &line_size);
 		if (nread == -1)
 			handle_getline_error(line);
-		count++;
 		commands = tokenize_string(line, " \n\t");
 		if (commands[0])
 		{
@@ -66,7 +65,8 @@ ssize_t read_command(char **line, size_t *line_size)
 
 /**
  * write_error - Writes an error message to STDERR
- *
+ * @index: execution count
+ * @name: error name
  * @command: command
  * Description: Writes an error message
  */
@@ -74,8 +74,9 @@ void write_error(char *name, char *command, int index)
 {
 	char i[10] = {'\0'};
 
-        if (index ==0) index=1;
-	int_to_string(index,i);
+	if (index == 0)
+		index = 1;
+	int_to_string(index, i);
 
 	write(STDERR_FILENO, name, _strlen(name));
 	write(STDERR_FILENO, ": ", 2);
